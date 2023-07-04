@@ -74,8 +74,9 @@ def sendMessage(message:str) :
     print(r.text)
 
 def parser():
+    parseData()
+    sendMessage(message="Начинаю собирать инфу")
     message = selectData()
     sendMessage(message=message)
 
 parser()
-
