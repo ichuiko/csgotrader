@@ -26,9 +26,7 @@ def parseData():
         for j in items:
             dbName = j[1].lower()
             if dbName == name:
-                print(name)
                 query = f"""INSERT INTO trades VALUES({j[0]}, {i['price']}, {i['volume']}, {data['time']})"""
                 cursor.execute(query)
                 conn.commit()
-
-parseData()
+    return "True"
