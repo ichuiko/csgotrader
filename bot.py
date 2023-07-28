@@ -10,9 +10,10 @@ from scraper import parseData
 
 def parseFromMarket(context : CallbackContext) :
     parseData(1)
-    context.bot.send_message(chat_id=3313923891, text='parsed')
+    context.bot.send_message(chat_id=331392389, text='parsed')
 
 def start(update: Update , context : CallbackContext) :
+    print(update.message.from_user.id)
     context.bot.send_message(chat_id=update.effective_chat.id, text='Rabotaem')
     context.job_queue.run_repeating(parseFromMarket,60, context=update.message.chat_id)
 
