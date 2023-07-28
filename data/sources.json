@@ -1,0 +1,12 @@
+{
+    "sources" : [
+        {
+            "id" : 1,
+            "name" : "https://market.csgo.com/ru/"
+        },
+        {
+            "id" : 2,
+            "name" : "https://buff.163.com/"
+        }
+    ]
+}
