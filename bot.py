@@ -8,7 +8,7 @@ import logging
 from datetime import datetime
 from scraper import parseData
 
-def parseFromMarket(update: Update , context : CallbackContext) :
+def parseFromMarket(context : CallbackContext) :
     parseData(1)
     context.bot.send_message(chat_id=3313923891, text='')
 
