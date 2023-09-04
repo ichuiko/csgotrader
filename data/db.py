@@ -46,7 +46,7 @@ def getSendings():
     dbFilename = pt.abspath('data/data.db')
     conn = sqlite3.connect(dbFilename,check_same_thread=False)
     cursor = conn.cursor()
-    query = """SELECT * FROM sendings WHERE is_sended = 0 ORDER BY id DESC"""
+    query = """SELECT * FROM sendings WHERE is_sended IS NULL ORDER BY id DESC"""
     cursor.execute(query)
     data = cursor.fetchall()
 
