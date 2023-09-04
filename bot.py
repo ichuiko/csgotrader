@@ -41,8 +41,8 @@ def sendOrder(context : CallbackContext) :
         time.sleep(2)
 
 def start(update: Update , context : CallbackContext) :
-    context.job_queue.run_repeating(parseFromMarket,180, context=update.message.chat_id)
-    context.job_queue.run_repeating(sendOrder,60, context=update.message.chat_id)
+    context.job_queue.run_repeating(parseFromMarket,60, context=update.message.chat_id)
+    context.job_queue.run_repeating(sendOrder,10, context=update.message.chat_id)
     context.bot.send_message(chat_id=update.effective_chat.id, text='Джобы запущены')
 
 def stop(update: Update , context : CallbackContext ) :
