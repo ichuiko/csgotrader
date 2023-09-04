@@ -36,7 +36,7 @@ def sendOrder(context : CallbackContext) :
             [InlineKeyboardButton('Buff', url = info['buffUrl'])]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        context.bot.send_message(chat_id=CHANNEL, text=message, reply_markup=reply_markup)
+        context.bot.send_message(chat_id=context, text=message, reply_markup=reply_markup)
         updateSending(i[0])
         time.sleep(2)
 
@@ -44,6 +44,12 @@ def start(update: Update , context : CallbackContext) :
     context.job_queue.run_repeating(parseFromMarket,180, context=update.message.chat_id)
     context.job_queue.run_repeating(sendOrder,60, context=update.message.chat_id)
     context.bot.send_message(chat_id=update.effective_chat.id, text='Джобы запущены')
+
+def stop(update: Update , context : CallbackContext ) :
+    current_jobs = context.job_queue.get_jobs_by_name(name)
+
+    for job in current_jobs:
+        job.schedule_removal()
 
 if __name__ == "__main__" :
     TOKEN = "6290678020:AAFy9CdpJhcavRMLJAJEj5_Vr6MUsoIgBBs"
@@ -55,6 +61,8 @@ if __name__ == "__main__" :
 
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
+    stop_handler = CommandHandler('stop', stop)
+    dispatcher.add_handler(stop_handler)
     
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',level=logging.INFO)
     updater.start_polling()
