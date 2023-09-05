@@ -13,7 +13,7 @@ class Market():
         info = []
 
         for i in data['items'] :
-            if int(i['volume']) >= 30:
+            if int(i['volume']) >= 30 and float(i['price']) >= 3:
                 item = [1, data['time'] ,i['market_hash_name'].replace("'", " "), int(i['volume']), i['price'], 0]
                 info.append(item)
             

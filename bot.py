@@ -41,17 +41,17 @@ def sendOrder(context : CallbackContext) :
         time.sleep(2)
 
 def start(update: Update , context : CallbackContext) :
-    context.job_queue.run_repeating(parseFromMarket,60, context=update.message.chat_id)
-    context.job_queue.run_repeating(sendOrder,10, context=update.message.chat_id)
+    market = Market()
+    buff = Buff()
+    market.parse()
+    buff.parse() 
+
     context.bot.send_message(chat_id=update.effective_chat.id, text='Джобы запущены')
+    context.job_queue.run_repeating(parseFromMarket,120, context=update.message.chat_id)
+    context.job_queue.run_repeating(sendOrder,60, context=update.message.chat_id)
 
 def stop(update: Update , context : CallbackContext ) :
-    current_jobs = context.job_queue.get_jobs_by_name(parseFromMarket)
-    for job in current_jobs:
-        job.schedule_removal()
-    current_jobs = context.job_queue.get_jobs_by_name(sendOrder)
-    for job in current_jobs:
-        job.schedule_removal()
+    context.job_queue.stop()
     context.bot.send_message(chat_id=update.effective_chat.id, text='Джобы остановлены')
 
 if __name__ == "__main__" :
